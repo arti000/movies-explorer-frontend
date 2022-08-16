@@ -70,7 +70,7 @@
 @media screen and (max-width: 768px) {
   .promo {
     align-items: center;
-    padding-top: 140px;
+    padding: 140px 44px 0px;
   }
 
   .promo__content {
@@ -123,9 +123,9 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 670px) {
   .promo {
-    padding-top: 70px;
+    padding: 70px 10px 30px;
   }
   
   .promo__image {
@@ -148,6 +148,6 @@
   }
 
   .promo__link {
-    margin-bottom: 30px;
+    margin-bottom: 0;
   }
 }
