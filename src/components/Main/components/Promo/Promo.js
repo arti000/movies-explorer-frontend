@@ -1,5 +1,5 @@
 import './Promo.css';
-import { Link } from "react-router-dom";
+import { HashLink as Link } from 'react-router-hash-link';
 import banner from '../../../../images/banner.svg';
 
 function Promo() {
@@ -16,7 +16,7 @@ function Promo() {
           </p>
         </div>
       </div>
-      <Link className="promo__link" to="/#">Узнать больше</Link>
+      <Link className='promo__link' to='/#about-project'>Узнать больше</Link>
     </section>
   );
 }
