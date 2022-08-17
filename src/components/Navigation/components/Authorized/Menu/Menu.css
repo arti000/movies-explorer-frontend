@@ -86,7 +86,7 @@
 }
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 670px) {
   .hidden-menu {
     background: unset;
   }
