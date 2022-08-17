@@ -1,18 +1,10 @@
-import './Navigation.css';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import Authorized from './components/Authorized/Authorized';
+import Unauthorized from './components/Unauthorized/Unauthorized';
 
 function Navigation() {
-  return (
-    <nav className='nav'>
-      <NavLink to='/signup' className='nav__link'>
-        Регистрация
-      </NavLink>
-      <NavLink to='/signin' className='nav__button'>
-        Войти
-      </NavLink>
-    </nav>
-  );
+  const [signIn, setSignIn] = useState(true);
+  return <> { signIn ? <Authorized /> : <Unauthorized /> } </>;
 }
-
 export default Navigation;
