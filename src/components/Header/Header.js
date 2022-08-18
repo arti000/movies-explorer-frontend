@@ -5,7 +5,7 @@ import Navigation from '../Navigation/Navigation';
 function Header() {
   return (
     <header className="header">
-        <Link className="header__logo" to="/#" target="_blank"></Link>
+        <Link className="header__logo" to="/#" target=""></Link>
         <Navigation />
     </header>
   );
