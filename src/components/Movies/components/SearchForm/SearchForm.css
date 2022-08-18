@@ -9,7 +9,7 @@
   position: absolute;
   bottom: 0;
   left: 70px;
-  width: 89%;
+  width: calc(100% - 140px);
   border-top: 1px solid #e8e8e8;
   content: '';
 }
@@ -113,7 +113,7 @@
   opacity: 0.8;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 660px) {
   .searchForm {
     border-bottom: none;
     padding: 79px 10px 10px;
