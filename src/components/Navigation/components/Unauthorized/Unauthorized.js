@@ -14,5 +14,4 @@ function Unauthorized() {
     </nav>
   );
 }
-
 export default Unauthorized;

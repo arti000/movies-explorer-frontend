@@ -5,6 +5,12 @@
   cursor: pointer;
   display: none;
   position: relative;
+  border: none;
+  background-color: transparent;
+}
+
+.authorized__hidden-menu_white {
+  background-image: url(../../../../images/menu-icon_white.svg);
 }
 
 .authorized__hidden-menu:hover {
@@ -30,8 +36,8 @@
 
 .authorized__link {
   text-decoration: none;
-  color: black;
   margin-right: 16px;
+  color: #000;
 }
 
 .authorized__link:hover {
@@ -43,6 +49,17 @@
   line-height: 18px;
 }
 
+.authorized__link-text {
+  margin: 0;
+  padding: 0;
+}
+
+.authorized__link-text_white {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
 .authorized__link_profile {
   margin: 0;
   width: 109px;
@@ -50,9 +67,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
   font-size: 14px;
   line-height: 16px;
+}
+
+.authorized__link_profile_main-theme {
+  text-decoration: none;
+  
+  border: 2px solid #fff;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 0;
+  width: 109px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authorized__link_text_main-theme {
+  color: #fff;
+  margin: 0 0 0 8px;
 }
 
 .authorized__logo {
@@ -61,7 +98,14 @@
   background-color: #F9F9f9;
   border-radius: 4px;
   padding: 8px 7px;
-  margin-left: 17px;
+  margin-left: 8px;
+}
+
+.authorized__logo_white {
+  width: 12px;
+  height: 14px;
+  padding: 8px 7px;
+  margin-left: 8px;
 }
 
 @media screen and (max-width: 768px) {

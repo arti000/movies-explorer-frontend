@@ -1,9 +1,10 @@
 import './Authorized.css';
 import React from 'react';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import Menu from './Menu/Menu';
 import accountLogo from '../../../../images/account_logo.svg';
+import accountLogoWhite from '../../../../images/account_logo_white.svg';
 
 function Authorized() {
   const [menuOpen, setMenuOpen] = useState(true);
@@ -15,10 +16,19 @@ function Authorized() {
   const closeMenu = () => {
     setMenuOpen(false);
   };
+
+  const location = useLocation();
+  const { pathname } = location;
+  const splitLocation = pathname.split("/");
+
   return (
     <>
       {menuOpen ? (
-        <div className='authorized__hidden-menu' onClick={closeMenu}></div>
+        <button 
+        className={splitLocation[1] === '' ? 'authorized__hidden-menu authorized__hidden-menu_white' : 'authorized__hidden-menu'}
+        onClick={closeMenu}
+        >
+        </button>
       ) : (
         <Menu onClick={openMenu} />
       )}
@@ -28,20 +38,25 @@ function Authorized() {
             to='/movies'
             className={({isActive}) => isActive ? 'authorized__link authorized__link__active' : 'authorized__link' }
           >
-            Фильмы
+          <p className={splitLocation[1] === '' ? 'authorized__link-text_white' : 'authorized__link-text'}>Фильмы</p>
           </NavLink>
           <NavLink
             to='/saved-movies'
             className={({ isActive }) => isActive ? 'authorized__link authorized__link__active' : 'authorized__link' }
           >
-            Сохранённые фильмы
+          <p className={splitLocation[1] === '' ? 'authorized__link-text_white' : 'authorized__link-text'}>Сохранённые фильмы</p>
           </NavLink>
         </div>
         <NavLink
           to='/profile'
-          className='authorized__link authorized__link_profile'>
+          className={splitLocation[1] === '' ? "authorized__link_profile_main-theme" : 'authorized__link authorized__link_profile'}>
+          <p className={splitLocation[1] === '' ? "authorized__link_text_main-theme" : ''}>
           Аккаунт
-          <img className='authorized__logo' src={accountLogo} alt='Иконка аккаунта'/>
+          </p>
+          <img 
+          className={splitLocation[1] === '' ? 'authorized__logo_white' : 'authorized__logo'} 
+          src={splitLocation[1] === '' ? accountLogoWhite : accountLogo} 
+          alt='Иконка аккаунта'/>
         </NavLink>
       </nav>
     </>
