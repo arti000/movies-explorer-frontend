@@ -111,6 +111,8 @@
   font-size: 13px;
   line-height: 16px;
   color: #000;
+  background-color: transparent;
+  border: none;
 }
 
 .profile__edit:hover {
