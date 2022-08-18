@@ -8,14 +8,16 @@ import Techs from './components/Techs/Techs';
 import AboutMe from './components/AboutMe/AboutMe';
 function Main() {
   return (
+    <>
+    <Header />
     <main className='content'>
-      <Header />
       <Promo />
       <AboutProject />
       <Techs />
       <AboutMe />
-      <Footer />
     </main>
+    <Footer />
+    </>
   );
 }
 
