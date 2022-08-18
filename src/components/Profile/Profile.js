@@ -54,7 +54,7 @@ function Profile() {
             </button>
           ) : (
             <div className='profile__buttons'>
-              <button className='profile__edit' onClick={() => setEdit(!edit)}>
+              <button type='button' className='profile__edit' onClick={() => setEdit(!edit)}>
                 Редактировать
               </button>
               <Link to='/' className='profile__logout'>
