@@ -25,20 +25,20 @@
 
   .moviesCardList__list {
     grid-template-columns: repeat(auto-fill, 339px);
-    grid-template-rows: repeat(auto-fill, 269px);
+    grid-template-rows: repeat(auto-fill, 270px);
     column-gap: 30px;
     row-gap: 30px;
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 480px) {
   .moviesCardList {
     padding: 40px 10px 30px;
   }
 
   .moviesCardList__list {
     grid-template-columns: repeat(auto-fill, 300px);
-    grid-template-rows: repeat(auto-fill, 236px);
-    row-gap: 16px;
+    grid-template-rows: repeat(auto-fill, 247px);
+    row-gap: 34px;
   }
 }
