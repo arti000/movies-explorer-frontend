@@ -1,0 +1,164 @@
+.searchForm {
+  padding: 70px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.searchForm:before {
+  position: absolute;
+  bottom: 0;
+  left: 70px;
+  width: calc(100% - 140px);
+  border-top: 1px solid #e8e8e8;
+  content: '';
+}
+
+.form {
+  height: 72px;
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 30px;
+  padding-left: 25px;
+  box-sizing: border-box;
+}
+
+.form__container {
+  margin: 0;
+  height: 40px;
+  width: 82%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 19px;
+  border-right: 1px solid #e8e8e8;
+  box-sizing: border-box;
+}
+
+.form__input {
+  height: 100%;
+  width: 87%;
+  border: none;
+  background-color: unset;
+}
+
+.form__input::placeholder {
+  background: url('../../../../images/find-icon-placeholder.svg') no-repeat;
+  background-position: left;
+  padding-left: 38px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #a0a0a0;
+}
+
+.form__button {
+  padding: 0;
+  background-image: url('../../../../images/find-icon.svg');
+  background-repeat: no-repeat;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background-color: unset;
+  cursor: pointer;
+}
+
+.form__button:hover {
+  opacity: 0.8;
+}
+
+.checkbox__label {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  padding-left: 19px;
+}
+
+.checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox__fake {
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  background-image: url('../../../../images/toggler-enabled.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  margin-right: 13px;
+}
+
+.checkbox__fake:hover {
+  opacity: 0.8;
+}
+
+.checkbox:checked + .checkbox__fake {
+  background-image: url('../../../../images/toggler-disabled.svg');
+}
+
+.checkbox:checked + .checkbox__fake:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 660px) {
+  .searchForm {
+    border-bottom: none;
+    padding: 79px 10px 10px;
+    margin-bottom: 0;
+  }
+  .searchForm:before {
+    display: none;
+  }
+
+  .form {
+    height: 182px;
+    flex-direction: column;
+    background-color: unset;
+    padding: 0;
+    border-radius: unset;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .form__container {
+    border: none;
+    background-color: #f9f9f9;
+    height: 72px;
+    padding-left: 19px;
+    width: 100%;
+    border-radius: 9px;
+  }
+
+  .form__input::placeholder {
+    background: unset;
+    padding-left: 0;
+    font-size: 14px;
+  }
+
+  .form__input {
+    width: 80%;
+    height: 72px;
+  }
+
+  .checkbox__label {
+    font-size: 11px;
+    line-height: 18px;
+    padding: 45px 0;
+  }
+
+  .checkbox__fake {
+    margin-right: 13px;
+  }
+}

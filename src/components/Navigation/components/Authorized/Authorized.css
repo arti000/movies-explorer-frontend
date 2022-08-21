@@ -1,0 +1,132 @@
+.authorized__hidden-menu {
+  height: 44px;
+  width: 44px;
+  background-image: url(../../../../images/menu-icon_black.svg);
+  cursor: pointer;
+  display: none;
+  position: relative;
+  border: none;
+  background-color: transparent;
+}
+
+.authorized__hidden-menu_white {
+  background-image: url(../../../../images/menu-icon_white.svg);
+}
+
+.authorized__hidden-menu:hover {
+  opacity: 0.8;
+}
+
+.authorized__menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 13px;
+  font-style: normal;
+  line-height: 18px;
+  align-items: baseline;
+}
+
+.authorized__movie {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authorized__link {
+  text-decoration: none;
+  margin-right: 16px;
+  color: #000;
+}
+
+.authorized__link:hover {
+  opacity: 0.8;
+}
+
+.authorized__link__active {
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.authorized__link-text {
+  margin: 0;
+  padding: 0;
+}
+
+.authorized__link-text_white {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.authorized__link_profile {
+  margin: 0;
+  width: 109px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.authorized__link_profile_main-theme {
+  text-decoration: none;
+  
+  border: 2px solid #fff;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 0;
+  width: 109px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authorized__link_text_main-theme {
+  color: #fff;
+  margin: 0 0 0 8px;
+}
+
+.authorized__logo {
+  width: 12px;
+  height: 14px;
+  background-color: #F9F9f9;
+  border-radius: 4px;
+  padding: 8px 7px;
+  margin-left: 8px;
+}
+
+.authorized__logo_white {
+  width: 12px;
+  height: 14px;
+  padding: 8px 7px;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .authorized__hidden-menu {
+    display: block;
+  }
+
+  .authorized__menu {
+    display: none;
+  }
+
+  .authorized__link_profile {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .authorized__hidden-menu {
+    width: 40px;
+    height: 43px;
+    background-size: contain;
+    background-position: center;
+  }
+}
