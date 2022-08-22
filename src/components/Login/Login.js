@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import { useState } from 'react';
 
-function Login() {
+function Login({ logIn }) {
   const [error, setError] = useState({
     email: '',
     password: '',

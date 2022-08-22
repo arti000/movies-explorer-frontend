@@ -19,23 +19,23 @@ class Authentification {
 
 // ========================== Регистрация пользователя ========================
 
-  registration = (userData) => {
+  registration = (email, password, name) => {
     return fetch(`${this._url}/signup`, {
       method: "POST",
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify(userData),
+      body: JSON.stringify({ email, password, name }),
     }).then(this._handleResponse);
   }
 
 // ========================== Авторизация пользователя ========================
 
-  logIn = (userData) => {
+  logIn = (email, password) => {
     return fetch(`${this._url}/signin`, {
       method: "POST",
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify(userData),
+      body: JSON.stringify({ email, password }),
     }).then(this._handleResponse)
   }
 }
