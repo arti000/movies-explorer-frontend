@@ -8,3 +8,5 @@ ____
 
 Публичный IPv4: 51.250.68.137  
 Домен: https://diploma.app.nomoredomains.sbs/
+
+Ссылка на пул-реквест: https://github.com/arti000/movies-explorer-frontend/pull/2
