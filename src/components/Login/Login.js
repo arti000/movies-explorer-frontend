@@ -86,7 +86,7 @@ function Login({ onLogin, authStatusMessage, userAuth }) {
         </div>
         {!userAuth && <span className='login__error'>{authStatusMessage}</span>}
         <button 
-          type='submit' 
+          type='button' 
           className={classSaveButton} 
           onClick={handleSubmit}
           disabled={!isValidForm}

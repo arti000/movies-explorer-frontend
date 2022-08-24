@@ -104,7 +104,7 @@ function Register({onRegister, authStatusMessage, userAuth }) {
         </div>
         {!userAuth && <span className='register__error'>{authStatusMessage}</span>}
         <button 
-          type='submit' 
+          type='button' 
           className={classSaveButton} 
           onClick={handleSubmit}
           disabled={!isValidForm}
