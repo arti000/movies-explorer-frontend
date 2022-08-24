@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Main from '../Main/Main';
 import Movies from "../Movies/Movies";
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -57,7 +57,7 @@ function App() {
     auth
       .registration(email, password, name)
       .then(() => {
-        navigate("/signin");
+        navigate('/signin');
         setUserAuth(true);
         setAuthStatusMessage(REGISTRATION_MESSAGE);
         setUserAuth(false);
@@ -86,7 +86,7 @@ function App() {
         return userData;
       })
       .then((userData) => {
-        navigate("/movies");
+        navigate('/movies');
       })
       .catch((err) => {
         if (err.message === UNAUTHORIZED_STATUS) {
@@ -104,7 +104,7 @@ function App() {
 
   function userSignOut() {
     setLoggedIn(false);
-    navigate("/signin");
+    navigate('/signin');
   }
 
 // ------------------------ Функции модального окна --------------------------
