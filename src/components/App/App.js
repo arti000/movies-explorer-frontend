@@ -254,6 +254,7 @@ function handleMovieDelete(movie) {
                     <SavedMovies 
                       loggedIn={loggedIn}
                       onClickDeleteMovie={handleMovieDelete}
+                      openPopupsMessage={openPopup}
                       currentMovies={savedMovies}
                     />
                   </ProtectedRoute>
