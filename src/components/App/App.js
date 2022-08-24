@@ -57,10 +57,10 @@ function App() {
     auth
       .registration(email, password, name)
       .then(() => {
-      navigate('/signin');
-      setUserAuth(true);
-      setAuthStatusMessage(REGISTRATION_MESSAGE);
-      setUserAuth(false);
+        navigate("/signin");
+        setUserAuth(true);
+        setAuthStatusMessage(REGISTRATION_MESSAGE);
+        setUserAuth(false);
       })
       .catch((err) => {
         if (err.message === CONFLICT_ERROR_STATUS) {
@@ -231,7 +231,6 @@ function handleMovieDelete(movie) {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <CurrentSavedMoviesContext.Provider value={savedMovies}>
-        <BrowserRouter>
           <div className='page'>
             <Routes>
               <Route exact path='/' element={<Main loggedIn={loggedIn}/>} />
@@ -303,15 +302,14 @@ function handleMovieDelete(movie) {
                 }
               />
               <Route path='*' element={<PageNotFound />} />
-              <InfoToolTip
+            </Routes>
+            <InfoToolTip
                 isOpen={isInfoToolTipOpen}
                 onClose={closePopup}
                 userAuth={userAuth}
                 authStatusMessage={authStatusMessage}
             />
-            </Routes>
           </div>
-        </BrowserRouter>
       </CurrentSavedMoviesContext.Provider>
     </CurrentUserContext.Provider>
   );
