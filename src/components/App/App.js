@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Main from '../Main/Main';
 import Movies from "../Movies/Movies";
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -9,10 +9,11 @@ import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import './App.css';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { CurrentSavedMoviesContext } from '../../contexts/CurrentSavedMoviesContext';
 import { mainApi } from '../../utils/MainApi';
-import { moviesApi } from '../../utils/MoviesApi';
 import { auth } from '../../utils/Authentification';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import {
   REGISTRATION_MESSAGE,
   CONFLICT_ERROR,
@@ -41,8 +42,7 @@ function App() {
 // ----------------------------- Модальное окно ------------------------------
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
 
-// -------------------------------- Прелоадер --------------------------------
-  const [userAuth, setUserAuth] = React.useState(false);
+  const [userAuth, setUserAuth] = React.useState(true);
 
   const navigate = useNavigate();
 
@@ -51,17 +51,24 @@ function App() {
 // ------------------------- Регистрация пользователя ------------------------
 
   function userRegistration({ email, password, name }) {
+    setAuthStatusMessage('');
+    setUserAuth(false);
+
     auth
       .registration(email, password, name)
       .then(() => {
       navigate('/signin');
+      setUserAuth(true);
       setAuthStatusMessage(REGISTRATION_MESSAGE);
+      setUserAuth(false);
       })
       .catch((err) => {
         if (err.message === CONFLICT_ERROR_STATUS) {
           setAuthStatusMessage(CONFLICT_ERROR);
+          setUserAuth(false);
         } else {
           setAuthStatusMessage(ERROR_SERVER_MESSAGE_SHORT);
+          setUserAuth(false);
         }
       })
     }
@@ -69,24 +76,28 @@ function App() {
 // ------------------------- Авторизация пользователя ------------------------
 
   function handleLogin({ email, password }) {
+    setAuthStatusMessage('')
+    setUserAuth(false);
+
     auth
-    .logIn(email, password)
-    .then((userData) => {
-      setLoggedIn(true);
-      setUserAuth(true);
-      return userData;
-    })
-    .then((userData) => {
-      navigate("/");
-    })
-    .catch((err) => {
-      if (err.message === UNAUTHORIZED_STATUS) {
-        setAuthStatusMessage(ERROR_MESSAGE_EMAIL_PASSWORD);
-      } else {
-        setAuthStatusMessage(ERROR_SERVER_MESSAGE_SHORT);
-      }
-    })
-    .finally(() => setUserAuth(false));
+      .logIn(email, password)
+      .then((userData) => {
+        setLoggedIn(true);
+        return userData;
+      })
+      .then((userData) => {
+        navigate("/movies");
+      })
+      .catch((err) => {
+        if (err.message === UNAUTHORIZED_STATUS) {
+          setAuthStatusMessage(ERROR_MESSAGE_EMAIL_PASSWORD);
+          setUserAuth(false);
+        } else {
+          setAuthStatusMessage(ERROR_SERVER_MESSAGE_SHORT);
+          setUserAuth(false);
+        }
+      })
+      .finally(() => setUserAuth(true));
   }
 
 // ---------------------- Выход пользователя с сервиса -----------------------
@@ -119,8 +130,10 @@ React.useEffect(() => {
       .catch((err) => {
         if (err.message === UNAUTHORIZED_STATUS) {
           setAuthStatusMessage(ERROR_MESSAGE_EMAIL_PASSWORD);
+          setUserAuth(false);
         } else {
           setAuthStatusMessage(ERROR_SERVER_MESSAGE_SHORT);
+          setUserAuth(false);
         }
       })
     mainApi
@@ -131,12 +144,19 @@ React.useEffect(() => {
       .catch((err) => {
         if (err.message === UNAUTHORIZED_STATUS) {
           setAuthStatusMessage(ERROR_MESSAGE_EMAIL_PASSWORD);
+          setUserAuth(false);
         } else {
           setAuthStatusMessage(ERROR_SERVER_MESSAGE_SHORT);
+          setUserAuth(false);
         }
       })
   }
 }, [loggedIn]);
+
+React.useEffect(() => {
+  setUserAuth(true);
+}, [navigate]);
+
 
 // ----------------------- Обновление данных пользователя ----------------------
 
@@ -144,47 +164,155 @@ function handleUpdateUser( name, email ) {
   mainApi
   .setUserInfo( name, email )
     .then((res) => {
-      setCurrentUser({ ...currentUser, name: res.name, email: res.email});
+      setUserAuth(false);
       setAuthStatusMessage(UPDATE_DATA_MESSAGE);
+      setCurrentUser({ ...currentUser, name: res.name, email: res.email});
     })
     .catch((err) => {
       if (err.message === CONFLICT_ERROR_STATUS) {
         setAuthStatusMessage(CONFLICT_ERROR);
+        setUserAuth(false);
       } else {
         setAuthStatusMessage(ERROR_SERVER_MESSAGE_SHORT);
+        setUserAuth(false);
       }
     })
   }
 
 // ---------------------- Добавление фильма в сохраненные ---------------------
 
+function handleMovieSave(movie, status) {
+  if (status === 'delete') {
+    handleMovieDelete(movie);
+    return;
+  }
+  const movieNew = {
+    ...movie,
+    image: `https://api.nomoreparties.co${movie.image.url}`,
+    thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+    movieId: movie._id,
+  };
+  delete movieNew.id;
+  delete movieNew.created_at;
+  delete movieNew.updated_at;
+  
+  mainApi
+  .saveMovie(movieNew)
+  .then((movie) => {
+    setSavedMovies((prev) => [...prev, movie]);
+  })
+  .catch((err) => {
+    if (err.message === BAD_REQUEST_STATUS) {
+      setAuthStatusMessage(ERROR_MOVIES_VALID_DATA_MESSAGE);
+      setIsInfoToolTipOpen(true);
+    } else {
+      setAuthStatusMessage(ERROR_SERVER_MESSAGE_SHORT);
+      setIsInfoToolTipOpen(true);
+    }
+  });
+}
+
 // ---------------------- Удаление фильма из сохраненных ----------------------
 
-function handleCardDelete(movie) {
+function handleMovieDelete(movie) {
   mainApi
   .deleteMovie(movie._id)
   .then(() => {
     setSavedMovies((state) => state.filter((m) => m._id !== movie._id));
     setAuthStatusMessage(DELETE_MOVIE_MESSAGE);
   })
-  .catch(() => setAuthStatusMessage(ERROR_SERVER_MESSAGE_SHORT));
+  .catch(() => {
+  setAuthStatusMessage(ERROR_SERVER_MESSAGE_SHORT)
+  setUserAuth(false);
+  })
 }
 
 // =============================== Блок верстки ===============================
   return (
-    <BrowserRouter>
-      <div className='page'>
-        <Routes>
-          <Route exact path='/' element={<Main />} />
-          <Route path='/movies' element={<Movies />} />
-          <Route path='/saved-movies' element={<SavedMovies />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/signin' element={<Login />} />
-          <Route path='/signup' element={<Register />} />
-          <Route path='*' element={<PageNotFound />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <CurrentUserContext.Provider value={currentUser}>
+      <CurrentSavedMoviesContext.Provider value={savedMovies}>
+        <BrowserRouter>
+          <div className='page'>
+            <Routes>
+              <Route exact path='/' element={<Main loggedIn={loggedIn}/>} />
+              <Route 
+                path='/movies' 
+                element={
+                  <ProtectedRoute loggedIn={loggedIn}>
+                    <Movies
+                      loggedIn={loggedIn}
+                      onClickSaveMovie={handleMovieSave}
+                      openPopupsMessage={openPopup}
+                    />
+                  </ProtectedRoute>
+                }  
+              />
+              <Route 
+                path='/saved-movies' 
+                element={
+                  <ProtectedRoute loggedIn={loggedIn}>
+                    <SavedMovies 
+                      loggedIn={loggedIn}
+                      onClickDeleteMovie={handleMovieDelete}
+                      currentMovies={savedMovies}
+                    />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path='/profile' 
+                element={
+                  <ProtectedRoute loggedIn={loggedIn}>
+                    <Profile
+                      loggedIn={loggedIn}
+                      onSignOut={userSignOut}
+                      onClickUpdateProfile={handleUpdateUser}
+                      authStatusMessage={authStatusMessage}
+                      userAuth={userAuth}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              <Route 
+                path='/signin' 
+                element={
+                  loggedIn ? (
+                    <Navigate to='/movies' />
+                  ) : (
+                    <Login
+                      onLogin={handleLogin}
+                      authStatusMessage={authStatusMessage}
+                      userAuth={userAuth}
+                    />
+                  )
+                }
+              />
+              <Route
+                path='/signup' 
+                element={
+                  loggedIn ? (
+                    <Navigate to='/movies' />
+                  ) : (
+                    <Register
+                      onRegister={userRegistration}
+                      authStatusMessage={authStatusMessage}
+                      userAuth={userAuth}
+                    />
+                  )
+                }
+              />
+              <Route path='*' element={<PageNotFound />} />
+              <InfoToolTip
+                isOpen={isInfoToolTipOpen}
+                onClose={closePopup}
+                userAuth={userAuth}
+                authStatusMessage={authStatusMessage}
+            />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </CurrentSavedMoviesContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
