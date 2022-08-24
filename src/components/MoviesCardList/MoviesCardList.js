@@ -10,7 +10,7 @@ import {
   NUMBER_OF_CARDS_LESS_660,
   ADD_NUMBER_CARD_4,
   ADD_NUMBER_CARD_2,
-} from '../../constants';
+} from '../../constants/constants';
 
 function MoviesCardList({ moviesArray, type, onClickButtonMovie }) {
   const [counter, setCounter] = React.useState();

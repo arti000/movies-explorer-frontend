@@ -1,4 +1,4 @@
-import { SHORT_MOVIE_DURATION } from '../constants';
+import { SHORT_MOVIE_DURATION } from '../constants/constants';
 export const movieFilter = () => {
   const moviesArray = JSON.parse(localStorage.getItem('moviesArray'));
   const searchRequests = localStorage.getItem('searchRequests');

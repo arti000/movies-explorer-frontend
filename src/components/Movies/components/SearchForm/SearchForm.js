@@ -1,6 +1,6 @@
 import React from "react";
 import './SearchForm.css';
-import { ENTER_WORD_MESSAGE } from '../../constants';
+import { ENTER_WORD_MESSAGE } from '../../../../constants/constants';
 import classNames from 'classnames';
 
 function SearchForm({ onClickRequestArray, openPopupsMessage, type, shortMovieRender}) {

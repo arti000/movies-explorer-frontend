@@ -6,7 +6,7 @@ import SearchForm from './components/SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Header from '../Header/Header';
 import { moviesApi } from '../../utils/MoviesApi';
-import { NOT_FOUND_MESSAGE, ERROR_SERVER_MESSAGE } from '../../constants/index';
+import { NOT_FOUND_MESSAGE, ERROR_SERVER_MESSAGE } from '../../constants/constants';
 import { movieFilter } from '../../utils/movieFilters';
 
 function Movies({ loggedIn, onClickSaveMovie, openPopupsMessage }) {

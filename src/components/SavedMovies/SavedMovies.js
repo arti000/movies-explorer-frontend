@@ -5,8 +5,8 @@ import SearchForm from '../Movies/components/SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
-import { CurrentSavedMoviesContext } from '../../contexts/CurrentSavedMoviesContext';
-import { NOT_FOUND_MESSAGE } from '../../constants/index';
+import { CurrentSavedMoviesContext } from '../../context/CurrentSavedMoviesContext';
+import { NOT_FOUND_MESSAGE } from '../../constants/constants';
 import { saveMovieFilter } from '../../utils/movieFilters';
 
 function SavedMovies({ loggedIn, onClickDeleteMovie, openPopupsMessage }) {

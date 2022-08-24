@@ -1,6 +1,6 @@
 import React from 'react';
 import './MoviesCard.css';
-import { CurrentSavedMoviesContext } from '../../contexts/CurrentSavedMoviesContext';
+import { CurrentSavedMoviesContext } from '../../context/CurrentSavedMoviesContext';
 
 function MoviesCard({ movie, type, onClickButtonMovie }) {
   const CurrentMovies = React.useContext(CurrentSavedMoviesContext);

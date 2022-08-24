@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import classNames from 'classnames';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function Profile({ loggedIn, onSignOut, onClickUpdateProfile, authStatusMessage, userAuth }) {
   const currentUser = React.useContext(CurrentUserContext);

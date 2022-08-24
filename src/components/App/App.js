@@ -8,8 +8,8 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import './App.css';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { CurrentSavedMoviesContext } from '../../contexts/CurrentSavedMoviesContext';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
+import { CurrentSavedMoviesContext } from '../../context/CurrentSavedMoviesContext';
 import { mainApi } from '../../utils/MainApi';
 import { auth } from '../../utils/Authentification';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
@@ -25,7 +25,7 @@ import {
   CONFLICT_ERROR_STATUS,
   UNAUTHORIZED_STATUS,
   BAD_REQUEST_STATUS,
-} from '../../constants';
+} from '../../constants/constants';
 
 
 function App() {
