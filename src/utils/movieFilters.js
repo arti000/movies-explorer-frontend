@@ -15,11 +15,11 @@ export const movieFilter = () => {
   } else return filteredMovies;
 };
 
-export const saveMovieFilter = (moviesArray, searchRequests, shortsFilter) => {
+export const saveMovieFilter = (moviesArray, searchRequests, short) => {
   const filteredMovies = moviesArray.filter(
     (movie) => movie.nameRU.indexOf(searchRequests) >= 0
   );
-  if (shortsFilter === 'on') {
+  if (short === 'on') {
     const shortsArray = filteredMovies.filter(
       (movie) => movie.duration < SHORT_MOVIE_DURATION
     );

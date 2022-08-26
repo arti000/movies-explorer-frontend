@@ -26,11 +26,16 @@ function Movies({ loggedIn, onClickSaveMovie, openPopupsMessage }) {
         .catch(() => {
           openPopupsMessage(ERROR_SERVER_MESSAGE)
         })
+      localStorage.setItem('searchRequests', searchResults.text.toLowerCase());
+      localStorage.setItem('shortsFilter', searchResults.short);
+      const arraySearch = movieFilter();
+      return renderArray(arraySearch);
+    } else {
+      localStorage.setItem('searchRequests', searchResults.text.toLowerCase());
+      localStorage.setItem('shortsFilter', searchResults.short);
+      const arraySearch = movieFilter();
+      return renderArray(arraySearch);
     }
-    localStorage.setItem('searchRequests', searchResults.text.toLowerCase());
-    localStorage.setItem('shortsFilter', searchResults.short);
-    const arraySearch = movieFilter();
-    return renderArray(arraySearch);
   };
 
   function shortMovieRender(searchResults) {
@@ -68,7 +73,7 @@ function Movies({ loggedIn, onClickSaveMovie, openPopupsMessage }) {
           onClickRequestArray={requestArray}
           openPopupsMessage={openPopupsMessage}
           type={'allMovies'}
-          shortMovieToggler={shortMovieRender}
+          shortMovieRender={shortMovieRender}
         />
         {preloaderOpen ? (
           <Preloader />
@@ -80,6 +85,7 @@ function Movies({ loggedIn, onClickSaveMovie, openPopupsMessage }) {
             onClickButtonMovie={onClickSaveMovie}
             />
         )}
+        <div className='movies__space'></div>
       </main>
       <Footer />
     </>

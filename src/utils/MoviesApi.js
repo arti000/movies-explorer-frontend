@@ -21,7 +21,6 @@ class MoviesApi {
 
   getAllMovies() {
     return fetch(this._url, {
-      credentials: 'include',
       headers: this._headers,
     }).then(this._handleResponse);
   }
@@ -31,7 +30,7 @@ class MoviesApi {
 export const moviesApi = new MoviesApi({
   url: 'https://api.nomoreparties.co/beatfilm-movies',
   headers: {
+    'Accept': 'application/json',
     'Content-Type': 'application/json',
-    'Access-Control-Request-Credentials': true,
   }
 });

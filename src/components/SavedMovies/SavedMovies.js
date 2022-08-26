@@ -54,7 +54,7 @@ function SavedMovies({ loggedIn, onClickDeleteMovie, openPopupsMessage }) {
           onClickRequestArray={requestArray}
           openPopupsMessage={openPopupsMessage}
           type={'saveMovies'}
-          onClickShortMovie={shortMovieRender}  
+          shortMovieRender={shortMovieRender}  
         />
         {preloaderOpen ? (
           <Preloader />

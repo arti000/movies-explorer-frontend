@@ -5,7 +5,7 @@ import { CurrentSavedMoviesContext } from '../../context/CurrentSavedMoviesConte
 function MoviesCard({ movie, type, onClickButtonMovie }) {
   const CurrentMovies = React.useContext(CurrentSavedMoviesContext);
   const { nameRU, duration, image } = movie;
-  const movieData = CurrentMovies.filter((el) => el.movieId === movie._id);
+  const movieData = CurrentMovies.filter((el) => el.movieId === movie.id);
   const isSave = movieData.length > 0;
 
   const setTimeFormat = (time) => {
@@ -19,7 +19,14 @@ function MoviesCard({ movie, type, onClickButtonMovie }) {
   
   return (
     <li className='moviesCard'>
-      <img className='moviesCard__image' src={image} alt={nameRU} />
+      <a
+        className='moviesCard__trailer'
+        href={movie.trailerLink}
+        target={'_blank'}
+        rel='noopener noreferrer'
+        >
+        <img className='moviesCard__image' src={imageMovie} alt={nameRU} />
+      </a>
       <div className='moviesCard__info'>
         <div className='moviesCard__about'>
           <h1 className='moviesCard__title'>{nameRU}</h1>
@@ -47,14 +54,6 @@ function MoviesCard({ movie, type, onClickButtonMovie }) {
           ></button>
         )}
         </div>
-        <a
-        className='moviesCard__trailer'
-        href={movie.trailerLink}
-        target={'_blank'}
-        rel='noopener noreferrer'
-        >
-        <img className='moviesCard__image' src={imageMovie} alt={nameRU} />
-        </a>
         <p className='moviesCard__duration'>{time}</p>
       </div>
     </li>

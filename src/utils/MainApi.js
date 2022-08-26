@@ -49,6 +49,7 @@ class MainApi {
 // ====================== Добавление фильма в сохраненные =====================
 
   saveMovie = (movie) => {
+    console.log(movie)
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       credentials: 'include',

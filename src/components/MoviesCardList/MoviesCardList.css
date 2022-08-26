@@ -4,10 +4,12 @@
   align-items: center;
   padding: 70px 70px 0;
   box-sizing: border-box;
+  flex-direction: column;
 }
 
 .moviesCardList__list {
   width: 100%;
+  max-width: 1280px;
   margin: 0;
   padding: 0;
   display: grid;
@@ -31,7 +33,7 @@
   }
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 650px) {
   .moviesCardList {
     padding: 40px 10px 30px;
   }

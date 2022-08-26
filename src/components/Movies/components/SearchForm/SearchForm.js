@@ -56,7 +56,7 @@ function SearchForm({ onClickRequestArray, openPopupsMessage, type, shortMovieRe
   }, [value.text]);
 
   return (
-    <section className='searchForm'>
+    <section className='searchForm' >
       <form className='searchForm__form'>
         <div className='searchForm__container'>
           <input

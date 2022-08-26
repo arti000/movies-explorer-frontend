@@ -181,16 +181,16 @@ function handleUpdateUser( name, email ) {
 
 // ---------------------- Добавление фильма в сохраненные ---------------------
 
-function handleMovieSave(movie, status) {
+function handleMovieSave(movie, status, id) {
   if (status === 'delete') {
-    handleMovieDelete(movie);
+    handleMovieDelete(id);
     return;
   }
   const movieNew = {
     ...movie,
     image: `https://api.nomoreparties.co${movie.image.url}`,
     thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
-    movieId: movie._id,
+    movieId: movie.id,
   };
   delete movieNew.id;
   delete movieNew.created_at;
@@ -214,11 +214,11 @@ function handleMovieSave(movie, status) {
 
 // ---------------------- Удаление фильма из сохраненных ----------------------
 
-function handleMovieDelete(movie) {
+function handleMovieDelete(id) {
   mainApi
-  .deleteMovie(movie._id)
+  .deleteMovie(id)
   .then(() => {
-    setSavedMovies((state) => state.filter((m) => m._id !== movie._id));
+    setSavedMovies((state) => state.filter((m) => m._id !== id));
     setAuthStatusMessage(DELETE_MOVIE_MESSAGE);
   })
   .catch(() => {

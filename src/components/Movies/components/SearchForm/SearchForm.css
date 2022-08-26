@@ -108,7 +108,8 @@
   display: inline-block;
   width: 36px;
   height: 20px;
-  background-image: url('../../../../images/toggler-enabled.svg');
+  background-image: url('../../../../images/toggler-disabled.svg');
+  
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
@@ -120,7 +121,7 @@
 }
 
 .searchForm__checkbox:checked + .searchForm__checkbox-fake {
-  background-image: url('../../../../images/toggler-disabled.svg');
+  background-image: url('../../../../images/toggler-enabled.svg');
 }
 
 .searchForm__checkbox:checked + .searchForm__checkbox-fake:hover {
