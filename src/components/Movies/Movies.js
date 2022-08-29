@@ -61,10 +61,10 @@ function Movies({ loggedIn, onClickSaveMovie, openPopupsMessage }) {
     if (!moviesArray) {
       setIsRender(false);
       return;
+    } else {
+      const arraySearch = movieFilter();
+      return renderArray(arraySearch);
     }
-    const arraySearch = movieFilter();
-    setIsRender(true);
-    renderArray(arraySearch);
     // eslint-disable-next-line
   }, []);
 

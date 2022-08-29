@@ -16,7 +16,11 @@ function SearchForm({ onClickRequestArray, openPopupsMessage, type, shortMovieRe
     e.preventDefault();
     const { value } = e.target;
     setValue((prev) => ({ ...prev, text: value }));
-    setError(e.target.validationMessage);
+    if(e.target.validity.valueMissing) {
+      return setError(ENTER_WORD_MESSAGE);
+    } else {
+      setError('')
+    }
   };
 
   function handleShortsToggler() {
@@ -27,11 +31,16 @@ function SearchForm({ onClickRequestArray, openPopupsMessage, type, shortMovieRe
   };
 
   function onClickSearch() {
-    if (error) {
-      return openPopupsMessage(ENTER_WORD_MESSAGE);
-    } 
-    return onClickRequestArray(value);
+      setError('')
+      return onClickRequestArray(value);
   };
+
+  function handleKeypress(e) {
+    if (e.keyCode === 13) {
+    e.preventDefault();
+    onClickSearch();
+  }
+};
 
   React.useEffect(() => {
     if (type === 'allMovies') {
@@ -63,9 +72,10 @@ function SearchForm({ onClickRequestArray, openPopupsMessage, type, shortMovieRe
             className='searchForm__input'
             type='text'
             value={value.text}
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
             placeholder={`Фильм`}
             name='text'
+            onKeyDown={handleKeypress}
             required
           />
           <button 

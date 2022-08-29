@@ -4,11 +4,14 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import More from './components/More/More';
 import {
   WIDTH_1279,
+  WIDTH_989,
   WIDTH_767,
   NUMBER_OF_CARDS_OVER_1279,
-  NUMBER_OF_CARDS_OVER_660,
+  NUMBER_OF_CARDS_LESS_1279,
+  NUMBER_OF_CARDS_LESS_989,
   NUMBER_OF_CARDS_LESS_660,
   ADD_NUMBER_CARD_4,
+  ADD_NUMBER_CARD_3,
   ADD_NUMBER_CARD_2,
 } from '../../constants/constants';
 
@@ -20,8 +23,11 @@ function MoviesCardList({ moviesArray, type, onClickButtonMovie }) {
     if (width > WIDTH_1279) {
       setCounter(NUMBER_OF_CARDS_OVER_1279);
       return setMoreCard(ADD_NUMBER_CARD_4);
+    } else if (width > WIDTH_989) {
+      setCounter(NUMBER_OF_CARDS_LESS_1279);
+      return setMoreCard(ADD_NUMBER_CARD_3);
     } else if (width > WIDTH_767) {
-      setCounter(NUMBER_OF_CARDS_OVER_660);
+      setCounter(NUMBER_OF_CARDS_LESS_989);
       return setMoreCard(ADD_NUMBER_CARD_2);
     } else setCounter(NUMBER_OF_CARDS_LESS_660);
     return setMoreCard(ADD_NUMBER_CARD_2);

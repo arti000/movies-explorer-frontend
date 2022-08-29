@@ -32,8 +32,8 @@ function App() {
 // =============================== Блок констант ==============================
 
 // ----------------------------- Для пользователя ----------------------------
-  const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
   const [authStatusMessage, setAuthStatusMessage] = React.useState('');
 
 // ------------------------------ Для фильмов --------------------------------
@@ -81,8 +81,9 @@ function App() {
     auth
       .logIn(email, password)
       .then((userData) => {
-        setLoggedIn(true);
-        navigate('/movies');
+        localStorage.setItem('loggedInSession', true)
+        checkToken()
+        navigate('/movies')
         return userData;
       })
       .catch((err) => {
@@ -103,6 +104,9 @@ function App() {
     localStorage.removeItem('moviesArray');
     localStorage.removeItem('searchRequests');
     localStorage.removeItem('shortsFilter');
+    localStorage.removeItem('loggedInSession')
+    setCurrentUser({});
+    setSavedMovies([]);
     setLoggedIn(false);
     auth
       .logOut()
@@ -128,12 +132,27 @@ function closePopup() {
 
 // ------------------------ Загрузка данных страницы -------------------------
 
+// ----------------------------- Проверка токена -----------------------------
+function checkToken() {
+  const storedLoggedInStatus = localStorage.getItem('loggedInSession');
+  if(storedLoggedInStatus) {
+    return setLoggedIn(true)
+  } else {
+    return setLoggedIn(false)
+  }
+}
+
 React.useEffect(() => {
-  if (loggedIn) {
+  checkToken()
+})
+
+React.useEffect(() => {
+  if(loggedIn) {
     mainApi
       .getUserInfo()
       .then((res) => {
         setCurrentUser(res);
+        setLoggedIn(true)
       })
       .catch((err) => {
         if (err.message === UNAUTHORIZED_STATUS) {
@@ -160,11 +179,6 @@ React.useEffect(() => {
       })
   }
 }, [loggedIn]);
-
-React.useEffect(() => {
-  setUserAuth(true);
-}, [navigate]);
-
 
 // ----------------------- Обновление данных пользователя ----------------------
 

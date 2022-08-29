@@ -71,7 +71,7 @@
   opacity: 0.8;
 }
 
-.searchForm__button_disable {
+.searchForm__button_disabled {
   cursor: default;
   opacity: 0.5;
 }
