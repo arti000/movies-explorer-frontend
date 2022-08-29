@@ -97,6 +97,10 @@
   opacity: 0.8;
 }
 
+.profile__save-button_span-text {
+  margin-top: 23px;
+}
+
 .profile__buttons {
   display: flex;
   flex-direction: column;
@@ -120,6 +124,8 @@
 }
 
 .profile__logout {
+  background-color: transparent;
+  border: none;
   margin-top: 16px;
   text-decoration: none;
   font-weight: 500;
@@ -131,6 +137,13 @@
 
 .profile__logout:hover {
   opacity: 0.8;
+}
+
+.profile__span-error {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ee3465;
 }
 
 @media screen and (max-width: 768px) {

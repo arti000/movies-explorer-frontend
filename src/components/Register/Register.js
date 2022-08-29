@@ -1,9 +1,10 @@
 import './Register.css';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.svg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import classNames from 'classnames';
 
-function Register() {
+function Register({onRegister, authStatusMessage, userAuth }) {
   const [error, setError] = useState({
     name: '',
     email: '',
@@ -15,19 +16,38 @@ function Register() {
     password: '',
   });
 
+  const [isValidForm, setIsValidForm] = useState(false);
+
   function handleSubmit(e) {
-    e.preventDefault();
+    if (!value.name || !value.password || !value.email) {
+      return;
+    }
+    return onRegister(value);
   }
-
+  
   function handleChange(e) {
-  const { name, value } = e.target;
-  setValue((prev) => ({ ...prev, [name]: value }));
-  setError((prev) => ({
-    ...prev,
-    [name]: e.target.validationMessage,
-  }));
+    const { name, value } = e.target;
+    setValue((prev) => ({ ...prev, [name]: value }));
+    setError((prev) => ({
+      ...prev,
+      [name]: e.target.validationMessage,
+    }));
   };
-
+  
+    const classSaveButton = classNames(`register__button`, {
+      'register__button_disable': !isValidForm,
+      'register__button_disable register__button_error-text': !userAuth,
+    });
+  
+  useEffect(() => {
+    if (error.name || error.email || error.password) {
+        return setIsValidForm(false);
+    } 
+    if (!value.password || !value.email || !value.name) {
+        return setIsValidForm(false);
+    }
+    setIsValidForm(true);
+  }, [error, value]);
   return (
     <section className='register'>
       <form className='register__form'>
@@ -42,6 +62,7 @@ function Register() {
                 type='text'
                 className='register__input'
                 name='name'
+                pattern='^[A-Za-zА-Яа-яЁё /s -]+$'
                 required
                 minLength={2}
                 maxLength={100}
@@ -58,6 +79,7 @@ function Register() {
               type='email'
               className='register__input'
               name='email'
+              pattern='^[^ ]+@[^ ]+\.[a-z]{2,3}$'
               required
               value={value.email}
               onChange={handleChange}
@@ -80,7 +102,13 @@ function Register() {
             )}
           </fieldset>
         </div>
-        <button type='submit' className='register__button' onClick={handleSubmit}>Зарегистрироваться</button>
+        {!userAuth && <span className='register__error'>{authStatusMessage}</span>}
+        <button 
+          type='button' 
+          className={classSaveButton} 
+          onClick={handleSubmit}
+          disabled={!isValidForm}
+          >Зарегистрироваться</button>
         <p className='register__text'>
           Уже зарегистрированы?
         <Link className='register-link__text' to='/signin'> Войти</Link>
