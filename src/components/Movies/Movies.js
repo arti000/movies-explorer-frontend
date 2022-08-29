@@ -22,14 +22,14 @@ function Movies({ loggedIn, onClickSaveMovie, openPopupsMessage }) {
         .getAllMovies()
         .then((movies) => {
           localStorage.setItem('moviesArray', JSON.stringify(movies));
+          localStorage.setItem('searchRequests', searchResults.text.toLowerCase());
+          localStorage.setItem('shortsFilter', searchResults.short);
+          const arraySearch = movieFilter();
+          return renderArray(arraySearch);
         })
         .catch(() => {
           openPopupsMessage(ERROR_SERVER_MESSAGE)
         })
-      localStorage.setItem('searchRequests', searchResults.text.toLowerCase());
-      localStorage.setItem('shortsFilter', searchResults.short);
-      const arraySearch = movieFilter();
-      return renderArray(arraySearch);
     } else {
       localStorage.setItem('searchRequests', searchResults.text.toLowerCase());
       localStorage.setItem('shortsFilter', searchResults.short);
@@ -47,11 +47,13 @@ function Movies({ loggedIn, onClickSaveMovie, openPopupsMessage }) {
   function renderArray(array) {
     if (array.length === 0) {
       openPopupsMessage(NOT_FOUND_MESSAGE);
+      setIsRender(false);
+      return
     } else {
       setFilteredArrayMovies(array);
+      setIsRender(true);
+      return setPreloaderOpen(false);
     }
-    setIsRender(true);
-    return setPreloaderOpen(false);
   };
 
   React.useEffect(() => {
@@ -63,6 +65,7 @@ function Movies({ loggedIn, onClickSaveMovie, openPopupsMessage }) {
     const arraySearch = movieFilter();
     setIsRender(true);
     renderArray(arraySearch);
+    // eslint-disable-next-line
   }, []);
 
   return (

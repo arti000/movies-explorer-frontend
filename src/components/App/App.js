@@ -57,10 +57,9 @@ function App() {
     auth
       .registration(email, password, name)
       .then(() => {
-        navigate('/signin');
         setUserAuth(true);
         setAuthStatusMessage(REGISTRATION_MESSAGE);
-        setUserAuth(false);
+        handleLogin({email, password})
       })
       .catch((err) => {
         if (err.message === CONFLICT_ERROR_STATUS) {
@@ -83,10 +82,8 @@ function App() {
       .logIn(email, password)
       .then((userData) => {
         setLoggedIn(true);
-        return userData;
-      })
-      .then((userData) => {
         navigate('/movies');
+        return userData;
       })
       .catch((err) => {
         if (err.message === UNAUTHORIZED_STATUS) {
@@ -97,14 +94,25 @@ function App() {
           setUserAuth(false);
         }
       })
-      .finally(() => setUserAuth(true));
+      .finally(() => setUserAuth(false));
   }
 
 // ---------------------- Выход пользователя с сервиса -----------------------
 
   function userSignOut() {
+    localStorage.removeItem('moviesArray');
+    localStorage.removeItem('searchRequests');
+    localStorage.removeItem('shortsFilter');
     setLoggedIn(false);
-    navigate('/signin');
+    auth
+      .logOut()
+      .then(() => {
+        navigate('/')
+      })
+      .catch(() => {
+        setAuthStatusMessage(ERROR_SERVER_MESSAGE_SHORT);
+        setUserAuth(false);
+      })
   }
 
 // ------------------------ Функции модального окна --------------------------

@@ -1,6 +1,5 @@
 import './Profile.css';
 import React from "react";
-import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import classNames from 'classnames';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
@@ -111,9 +110,9 @@ function Profile({ loggedIn, onSignOut, onClickUpdateProfile, authStatusMessage,
               <button type='button' className='profile__edit' onClick={() => setEdit(!edit)}>
                 Редактировать
               </button>
-              <Link to='/' className='profile__logout' onClick={onSignOut}>
+              <button type='button' className='profile__logout' onClick={onSignOut}>
                 Выйти из аккаунта
-              </Link>
+              </button>
             </div>
           )}
         </form>

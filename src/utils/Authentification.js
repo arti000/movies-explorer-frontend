@@ -38,6 +38,16 @@ class Authentification {
       body: JSON.stringify({ email, password }),
     }).then(this._handleResponse)
   }
+
+// =================================== Выход ==================================
+  logOut = () => {
+    return fetch(`${this._url}/signout`, {
+      method: "GET",
+      credentials: 'include',
+      headers: this._headers,
+      body: JSON.stringify(),
+    }).then(this._handleResponse)
+  }
 }
 
 export const auth = new Authentification({
